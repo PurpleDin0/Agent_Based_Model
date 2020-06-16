@@ -9,7 +9,7 @@ from model import propagation_model
 import model_params
 import argparse
 import os
-#import pandas as pd
+import pandas as pd
 
 # Specify arguments
 def get_path():
@@ -36,6 +36,7 @@ meme_model = propagation_model()
 steps = model_params.parameters['steps']
 
 for i in range(steps):
+    print("Step: " + str(i))
     meme_model.step()
 
 # Generate output    

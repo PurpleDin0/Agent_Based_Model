@@ -12,12 +12,13 @@ from mesa.datacollection import DataCollector
 import agent
 import model_functions
 import model_params
+import networkx as nx
 
 class propagation_model(Model):
     
     def __init__(self):
         super().__init__(Model)
-        
+        print("Starting Model")
         density = model_params.parameters['density']
         nodes = model_params.parameters['network_size']
         neg_bias = model_params.parameters['neg_bias']
@@ -25,9 +26,13 @@ class propagation_model(Model):
         self.num_agents = nodes
         self.meme = 0
         
-        G = model_functions.build_network(density, nodes)
+        #G = model_functions.build_network(density, nodes)
+        #nx.write_gpickle(G, "population.gpickle")
+        #END
+        G = nx.read_gpickle("population.gpickle")
         self.grid = NetworkGrid(G)
         self.schedule = RandomActivation(self)
+        print("Network Created")
         
         self.running = True
     
@@ -42,7 +47,7 @@ class propagation_model(Model):
     
     def step(self):
         self.schedule.step()
-        
+
         self.datacollector.collect(self)
         
         if self.meme == self.schedule.get_agent_count():
