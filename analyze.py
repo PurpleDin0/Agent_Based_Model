@@ -13,6 +13,8 @@ from functools import reduce
 from datetime import date as datemethod
 import numpy as np
 import scipy
+#Added a seperate import of the optimize package per https://github.com/scipy/scipy/issues/4005
+from scipy import optimize
 
 # Specify arguments
 def get_path():
